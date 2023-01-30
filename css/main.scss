@@ -1,0 +1,185 @@
+$color_black: #333;
+$color_gray: #888;
+$color_green: #0fc57c;
+$color_red: #cf2323;
+$font-family: Lato, sans-serif;
+$background-color_gray: #e4e4e4;
+$background-color_white: #fff;
+
+@mixin textsize($weight, $size) {
+  font-weight: $weight;
+  font-size: $size;
+}
+
+@mixin flexbox($align, $content, $items) {
+  display: flex;
+  align-items: $align;
+  justify-content: $content;
+  justify-items: $items;
+}
+
+body {
+  background: $background-color_white;
+  color: $color_black;
+  font-family: $font-family;
+  background-color: $background-color_gray;
+  .container {
+    display: block;
+    width: 400px;
+    margin: 10px auto 100px;
+    background-color: $background-color_white;
+    padding: 0px 10px 10px 10px;
+    border-radius: 10px;
+    h2 {
+      text-align: center;
+      padding-top: 10px;
+      margin-bottom: 0px;
+    }
+    h3 {
+      clear: both;
+      list-style: none;
+      color: $color_black;
+      @include textsize(700, 15px);
+      border-bottom: 2px solid $color_black;
+      padding: 20px 0 10px;
+      margin: 0;
+      text-transform: uppercase;
+    }
+    ul {
+      margin: 0;
+      padding: 0;
+      li {
+        input[type="text"] {
+          display: none;
+        }
+      }
+      li.editMode {
+        input[type="text"] {
+          display: block;
+        }
+        label {
+          display: none;
+        }
+      }
+
+      li {
+        * {
+          float: left;
+        }
+        clear: both;
+        list-style: none;
+        overflow: hidden;
+        padding: 20px 0;
+        border-bottom: 1px solid $background-color_gray;
+        > input[type="checkbox"] {
+          margin: 0 10px;
+          position: relative;
+          top: 15px;
+        }
+        > label {
+          @include textsize(500, 18px);
+          line-height: 40px;
+          width: 237px;
+          padding: 0 0 0 11px;
+        }
+        > input[type="text"] {
+          width: 226px;
+        }
+        > .delete {
+          &:hover {
+            color: $color_red;
+          }
+        }
+      }
+    }
+    input {
+      outline: none;
+    }
+    button {
+      outline: none;
+      background: none;
+      border: 0px;
+      color: $color_gray;
+      @include textsize(500, 18px);
+      width: 60px;
+      margin: 10px 0 0;
+
+      cursor: pointer;
+      &:hover {
+        color: $color_black;
+      }
+    }
+    label[for="new-task"] {
+      color: $color_black;
+      @include textsize(700, 18px);
+      border-bottom: 2px solid $color_black;
+      padding: 20px 0 10px;
+      margin: 0;
+      text-transform: uppercase;
+      display: block;
+      margin: 0 0 20px;
+    }
+    input[type="text"] {
+      margin: 0;
+      @include textsize(500, 18px);
+      line-height: 18px;
+      height: 18px;
+      padding: 10px;
+      border: 1px solid $background-color_gray;
+      background: $background-color_white;
+      border-radius: 6px;
+
+      color: $color_gray;
+      &:focus {
+        color: $color_black;
+      }
+    }
+
+    input#new-task {
+      float: left;
+      width: 318px;
+    }
+    p {
+      > button {
+        &:hover {
+          color: $color_green;
+        }
+      }
+    }
+    #completed-tasks {
+      label {
+        text-decoration: line-through;
+        color: $color_gray;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 739px) {
+  body .container {
+    display: block;
+    width: 300px;
+    margin: 10px auto 100px;
+    background-color: #fff;
+    padding: 0px 10px 10px 10px;
+    border-radius: 10px;
+    input#new-task {
+      width: 70%;
+    }
+    ul li > input[type="text"] {
+      width: 50%;
+    }
+    ul li > label {
+      width: 50%;
+    }
+    ul li,
+    .editMode {
+      @include flexbox(center, center, center);
+    }
+    ul li > input[type="checkbox"] {
+      margin: 0 10px;
+      position: relative;
+      top: 0;
+    }
+  }
+}
