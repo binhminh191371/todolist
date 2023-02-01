@@ -1,0 +1,33 @@
+@media screen and (max-width: 739px) {
+  body .container {
+    display: block;
+    width: 300px;
+    margin: 10px auto 100px;
+    background-color: #fff;
+    padding: 0px 10px 10px 10px;
+    border-radius: 10px;
+  }
+  body .container input#new-task {
+    width: 70%;
+  }
+  body .container ul li > input[type=text] {
+    width: 50%;
+  }
+  body .container ul li > label {
+    width: 50%;
+  }
+  body .container ul li,
+  body .container .editMode {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    justify-items: center;
+  }
+  body .container ul li > input[type=checkbox] {
+    margin: 0 10px;
+    position: relative;
+    top: 0;
+  }
+}
+
+/*# sourceMappingURL=responsive.css.map */

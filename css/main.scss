@@ -1,28 +1,23 @@
+@import "../base/reset";
+@import "../mixin/flexbox.scss";
+@import "../mixin/textsize.scss";
+
 $color_black: #333;
+$color_white: white;
 $color_gray: #888;
 $color_green: #0fc57c;
 $color_red: #cf2323;
+$color_orange: rgb(222, 151, 18);
 $font-family: Lato, sans-serif;
 $background-color_gray: #e4e4e4;
 $background-color_white: #fff;
-
-@mixin textsize($weight, $size) {
-  font-weight: $weight;
-  font-size: $size;
-}
-
-@mixin flexbox($align, $content, $items) {
-  display: flex;
-  align-items: $align;
-  justify-content: $content;
-  justify-items: $items;
-}
 
 body {
   background: $background-color_white;
   color: $color_black;
   font-family: $font-family;
   background-color: $background-color_gray;
+
   .container {
     display: block;
     width: 400px;
@@ -30,11 +25,14 @@ body {
     background-color: $background-color_white;
     padding: 0px 10px 10px 10px;
     border-radius: 10px;
+
     h2 {
       text-align: center;
       padding-top: 10px;
       margin-bottom: 0px;
+      @include textsize(bold, 25px);
     }
+
     h3 {
       clear: both;
       list-style: none;
@@ -45,18 +43,19 @@ body {
       margin: 0;
       text-transform: uppercase;
     }
+
     ul {
-      margin: 0;
-      padding: 0;
       li {
         input[type="text"] {
           display: none;
         }
       }
+
       li.editMode {
         input[type="text"] {
           display: block;
         }
+
         label {
           display: none;
         }
@@ -66,25 +65,36 @@ body {
         * {
           float: left;
         }
+        @include flexbox(space-around, center, center);
+
         clear: both;
         list-style: none;
         overflow: hidden;
         padding: 20px 0;
         border-bottom: 1px solid $background-color_gray;
+
         > input[type="checkbox"] {
           margin: 0 10px;
           position: relative;
-          top: 15px;
         }
+
         > label {
           @include textsize(500, 18px);
           line-height: 40px;
           width: 237px;
           padding: 0 0 0 11px;
         }
+
         > input[type="text"] {
           width: 226px;
         }
+
+        > .edit {
+          &:hover {
+            color: $color_orange;
+          }
+        }
+
         > .delete {
           &:hover {
             color: $color_red;
@@ -92,9 +102,11 @@ body {
         }
       }
     }
+
     input {
       outline: none;
     }
+
     button {
       outline: none;
       background: none;
@@ -109,18 +121,19 @@ body {
         color: $color_black;
       }
     }
+
     label[for="new-task"] {
       color: $color_black;
       @include textsize(700, 18px);
       border-bottom: 2px solid $color_black;
       padding: 20px 0 10px;
-      margin: 0;
+
       text-transform: uppercase;
       display: block;
       margin: 0 0 20px;
     }
+
     input[type="text"] {
-      margin: 0;
       @include textsize(500, 18px);
       line-height: 18px;
       height: 18px;
@@ -139,48 +152,49 @@ body {
       float: left;
       width: 318px;
     }
-    p {
+
+    .add-task {
+      margin-top: 20px;
+
       > button {
         &:hover {
           color: $color_green;
         }
       }
+
+      .fa-circle-plus {
+        font-size: 30px;
+        margin: -5px 15px 0;
+      }
     }
+
     #completed-tasks {
       label {
         text-decoration: line-through;
         color: $color_gray;
       }
     }
-    
-  }
-}
 
-@media screen and (max-width: 739px) {
-  body .container {
-    display: block;
-    width: 300px;
-    margin: 10px auto 100px;
-    background-color: #fff;
-    padding: 0px 10px 10px 10px;
-    border-radius: 10px;
-    input#new-task {
-      width: 70%;
-    }
-    ul li > input[type="text"] {
-      width: 50%;
-    }
-    ul li > label {
-      width: 50%;
-    }
-    ul li,
-    .editMode {
+    .pages {
       @include flexbox(center, center, center);
-    }
-    ul li > input[type="checkbox"] {
-      margin: 0 10px;
-      position: relative;
-      top: 0;
+      column-gap: 10px;
+      margin-top: 20px;
+
+      .page {
+        border: none;
+        padding: 10px 15px;
+        @include textsize(bold, 13px);
+        background-color: $color_black;
+        color: $color_white;
+        opacity: 0.6;
+        border-radius: 5px;
+        cursor: pointer;
+
+        &:hover {
+          transition: 0.2 linear;
+          opacity: 1;
+        }
+      }
     }
   }
 }

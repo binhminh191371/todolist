@@ -1,0 +1,36 @@
+@import '../mixin/flexbox.scss';
+
+
+@media screen and (max-width: 739px) {
+    body .container {
+      display: block;
+      width: 300px;
+      margin: 10px auto 100px;
+      background-color: #fff;
+      padding: 0px 10px 10px 10px;
+      border-radius: 10px;
+
+      input#new-task {
+        width: 70%;
+      }
+
+      ul li > input[type="text"] {
+        width: 50%;
+      }
+
+      ul li > label {
+        width: 50%;
+      }
+
+      ul li,
+      .editMode {
+        @include flexbox(center, center, center);
+      }
+      
+      ul li > input[type="checkbox"] {
+        margin: 0 10px;
+        position: relative;
+        top: 0;
+      }
+    }
+  }
