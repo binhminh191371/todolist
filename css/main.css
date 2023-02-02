@@ -7,13 +7,11 @@ body {
   padding: 0;
   width: 100%;
   line-height: 1.3;
-  color: rgb(88, 56, 56);
 }
 
 * {
   padding: 0;
   margin: 0;
-  font-family: "Noto Sans", sans-serif;
 }
 
 ul {
@@ -46,27 +44,6 @@ h6 {
   font-weight: bold;
 }
 
-h1 {
-  font-weight: normal;
-  margin: 0;
-}
-
-h2 {
-  font-weight: normal;
-  margin: 0;
-}
-
-.container-insurance {
-  max-width: 1200px;
-  margin: 0 auto;
-  position: relative;
-}
-
-.wrapper {
-  max-width: 100%;
-  overflow-x: hidden;
-}
-
 body {
   background: #fff;
   color: #333;
@@ -80,6 +57,38 @@ body .container {
   background-color: #fff;
   padding: 0px 10px 10px 10px;
   border-radius: 10px;
+  position: relative;
+}
+body .container .cover {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #333;
+  opacity: 0.5;
+  z-index: 1;
+}
+body .container .loader {
+  border: 10px solid #e4e4e4;
+  position: absolute;
+  border-top: 10px solid #3498db;
+  top: 50%;
+  right: 45%;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  animation: spin 1s linear infinite;
+  display: none;
+  z-index: 1;
+}
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 body .container h2 {
   text-align: center;

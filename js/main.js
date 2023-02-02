@@ -5,6 +5,49 @@ const completedTasksHolder = document.getElementById("completed-tasks");
 const listPages = document.querySelector(".pages");
 const endPoint = "https://jsonplaceholder.typicode.com/users/1/todos";
 const displayTitle = document.querySelector(".title");
+const Loading = document.querySelector(".loader");
+const container = document.querySelector(".container");
+const axiosInstance = axios.create();
+const tempCover = `<div class="cover"></div>`;
+//Add a request interceptor
+async function handlePageNumber(number) {
+  await new Promise((res, reject) => {
+    container.insertAdjacentHTML("afterbegin", tempCover);
+    Loading.style.display = "block";
+
+    setTimeout(res(), 2000);
+  });
+
+  currentPage = number;
+  perTitles = titlesPage.slice(
+    (currentPage - 1) * perPage,
+    (currentPage - 1) * perPage + perPage
+  );
+  container.removeChild(container.firstChild);
+  incompleteTasksHolder.innerHTML = "";
+  completedTasksHolder.innerHTML = "";
+
+  renderTitles();
+}
+axiosInstance.interceptors.request.use(
+  function (config) {
+    return config;
+  },
+  function (error) {
+    return Promise.reject(error);
+  }
+);
+
+// Add a response interceptor
+axiosInstance.interceptors.response.use(
+  function (response) {
+    addButton.addEventListener("click", addTask);
+    return response;
+  },
+  function (error) {
+    return Promise.reject(error);
+  }
+);
 
 let titlesPage = [];
 let currentPage = 1;
@@ -14,10 +57,9 @@ let perTitles = [];
 
 async function getTitles() {
   try {
-    let data = await axios.get(`${endPoint}`);
-    console.log(data);
+    let data = await axiosInstance.get(`${endPoint}`);
+
     titlesPage = data.data;
-    console.log(titlesPage);
     perTitles = titlesPage.slice(
       (currentPage - 1) * perPage,
       (currentPage - 1) * perPage + perPage
@@ -31,15 +73,24 @@ async function getTitles() {
 }
 getTitles();
 
-function handlePageNumber(number) {
+async function handlePageNumber(number) {
+  await new Promise((res, reject) => {
+    Loading.style.display = "block";
+    container.insertAdjacentHTML("afterbegin", tempCover);
+    setTimeout(res, 2000);
+  });
+
   currentPage = number;
   perTitles = titlesPage.slice(
     (currentPage - 1) * perPage,
     (currentPage - 1) * perPage + perPage
   );
+  container.removeChild(container.firstChild);
   incompleteTasksHolder.innerHTML = "";
   completedTasksHolder.innerHTML = "";
+
   renderTitles();
+  Loading.style.display = "none";
 }
 
 function renderPages() {
@@ -98,14 +149,19 @@ const createNewTaskElement = function (taskString) {
   return listItem;
 };
 // add task
-function addTask() {
+async function addTask() {
+  await new Promise((res, reject) => {
+    Loading.style.display = "block";
+    container.insertAdjacentHTML("afterbegin", tempCover);
+    setTimeout(res, 2000);
+  });
   const item = createNewTaskElement(taskInput.value);
   incompleteTasksHolder.appendChild(item);
   bindTaskEvents(item, taskCompleted);
   taskInput.value = "";
+  Loading.style.display = "none";
+  container.removeChild(container.firstChild);
 }
-
-addButton.addEventListener("click", addTask);
 
 //Edit an existing task
 function editTask() {
@@ -166,29 +222,6 @@ const initData = () => {
     bindTaskEvents(completedTasksHolder.children[i], taskIncomplete);
   }
 };
-
-// getTitles().then((results) =>
-//   [...results].slice(0, 4).map((item) => {
-//     const tempIncomplete = ` <li >
-//         <input type="checkbox" class="input_checkbox " checked /><label >${item.title}</label
-//         > <input type="text"> <button class="edit"><i class="fa-solid fa-pen-to-square"></i></button
-//         ><button class="delete"><i class="fa-solid fa-trash"></i></button>
-//       </li>`;
-//     const tempComplete = ` <li >
-//       <input type="checkbox" class="input_checkbox "  /><label >${item.title}</label
-//       ><input type="text"> <button class="edit"><i class="fa-solid fa-pen-to-square"></i></button
-//       ><button class="delete"><i class="fa-solid fa-trash"></i></button>
-//     </li>`;
-
-//     if (item.completed) {
-//       incompleteTasksHolder.insertAdjacentHTML("afterbegin", tempComplete);
-//     } else {
-//       completedTasksHolder.insertAdjacentHTML("afterbegin", tempIncomplete);
-//     }
-
-//     initData();
-//   })
-// );
 
 //Set the click handler to the addTask function
 
